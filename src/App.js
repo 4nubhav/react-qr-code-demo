@@ -5,6 +5,12 @@ import './App.css'
 function App() {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
+    const [showQR, setShowQR] = useState(false)
+
+    const generate = (e) => {
+        e.preventDefault()
+        setShowQR(true)
+    }
 
     return (
         <div className='wrapper centered'>
@@ -13,14 +19,21 @@ function App() {
                     <input type='text'
                            placeholder='First Name'
                            value={firstName}
-                           onChange={(e) => setFirstName(e.target.value)}/>
+                           onChange={(e) => {
+                               setShowQR(false)
+                               setFirstName(e.target.value)
+                           }}/>
                     <input type='text'
                            placeholder='Last Name'
                            value={lastName}
-                           onChange={(e) => setLastName(e.target.value)}/>
+                           onChange={(e) => {
+                               setShowQR(false)
+                               setLastName(e.target.value)
+                           }}/>
+                    <button onClick={generate}>Generate</button>
                 </div>
                 <div className='box'>
-                    <QRCode value={`${firstName} ${lastName}`}/>
+                    { showQR ? <QRCode value={`${firstName} ${lastName}`}/> : <h1>QR</h1>}
                 </div>
             </div>
         </div>
